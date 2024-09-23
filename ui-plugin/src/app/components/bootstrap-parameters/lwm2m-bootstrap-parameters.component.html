@@ -1,0 +1,28 @@
+<form (ngSubmit)="save()">
+  <div class="card content-fullpage fit-h">
+    <div class="card-header separator grid__col--fullspan">
+      <h1 class="card-title">{{ 'LWM2M bootstrap parameters' | translate }}</h1>
+    </div>
+    <div class="inner-scroll">
+      <formly-form
+        [form]="form"
+        [fields]="fields"
+        [model]="model"
+        [options]="options"
+      ></formly-form>
+    </div>
+    <div
+      [hidden]="options.formState.disabled"
+      class="card-footer separator grid__col--fullspan sticky-bottom"
+    >
+      <button
+        title="{{ 'Save' | translate }}"
+        type="submit"
+        class="btn btn-primary"
+        [disabled]="form.invalid || !form.dirty"
+      >
+        {{ 'Save' | translate }}
+      </button>
+    </div>
+  </div>
+</form>

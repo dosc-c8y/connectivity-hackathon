@@ -1,0 +1,40 @@
+<div class="input-group">
+  <input
+    class="form-control"
+    [class.is-invalid]="showError"
+    [type]="'text'"
+    [formControl]="formControl"
+    [formlyAttributes]="field"
+    [required]="props.required"
+    [disabled]="props.disabled"
+    readonly
+  />
+  <div class="input-group-btn a-i-end">
+    <button
+      class="btn btn-primary btn-block"
+      title="{{ 'Replace' | translate }}"
+      type="button"
+      (click)="onFocus()"
+      [disabled]="props.disabled"
+    >
+      <i c8yIcon="replace"></i>
+      <input
+        class="hidden"
+        id="file"
+        type="file"
+        accept=".pem"
+        #picker
+        (change)="onPick($event)"
+      />
+    </button>
+    <button
+      class="btn btn-danger btn-block"
+      title="{{ 'Remove' | translate }}"
+      type="button"
+      (click)="remove()"
+      [disabled]="props.disabled"
+    >
+      <i c8yIcon="minus-circle"></i>
+    </button>
+  </div>
+</div>

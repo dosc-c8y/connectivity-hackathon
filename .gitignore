@@ -1,0 +1,6 @@
+**target/
+**settings.json
+**.angular
+ui-plugin/node_modules
+ui-plugin/dist
+ui-plugin/.editorconfig

@@ -1,0 +1,13 @@
+<div
+  [attr.aria-labelledby]="id + '-fieldset'"
+  role="group"
+>
+  <p
+    class="legend form-block text-medium m-t-auto"
+    id="{{ id + '-fieldset' }}"
+    *ngIf="props.label"
+  >
+    {{ props.label | humanize }}
+  </p>
+  <ng-container #fieldComponent></ng-container>
+</div>

@@ -1,0 +1,12 @@
+<div class="input-group">
+  <span class="input-group-addon">{{ props?.addonLabel }}</span>
+  <input
+    class="form-control"
+    [class.is-invalid]="showError"
+    [type]="'text'"
+    [formControl]="formControl"
+    [formlyAttributes]="field"
+    [required]="props.required"
+    [disabled]="props.disabled"
+  />
+</div>

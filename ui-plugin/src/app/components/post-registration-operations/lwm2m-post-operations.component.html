@@ -1,0 +1,70 @@
+<c8y-title>{{ 'LWM2M post-operations' | translate }}</c8y-title>
+<c8y-breadcrumb>
+  <c8y-breadcrumb-item
+    [label]="'Device types' | translate"
+    [icon]="'c8y-device-protocols'"
+  ></c8y-breadcrumb-item>
+  <c8y-breadcrumb-item [label]="'LWM2M post-operations' | translate"></c8y-breadcrumb-item>
+</c8y-breadcrumb>
+
+<div class="card content-fullpage card--grid grid__col--7-5--md grid__row--auto-min-content">
+  <div class="inner-scroll bg-component">
+    <div class="card-header large-padding separator sticky-top">
+      <div class="h4 m-r-16" id="commands">
+        {{ 'Commands' | translate }}
+      </div>
+    </div>
+    <div class="card-block large-padding">
+      <form
+        #commandsForm="ngForm"
+        id="commandsForm"
+        class="d-flex d-col flex-grow fit-h"
+        (ngSubmit)="save(operations)"
+      >
+        <div class="form-group">
+          <textarea
+            [(ngModel)]="operations.commands"
+            class="form-control"
+            aria-labelledby="commands"
+            name="commands"
+            rows="20"
+          ></textarea>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div class="inner-scroll bg-level-1" tabindex="0">
+    <div class="card-block large-padding">
+      <p class="m-b-16">
+        <i class="text-info m-r-4 text-14" c8yIcon="info-circle"></i>
+        {{
+          'You can enter a set of LWM2M shell commands. Each command will be sent to every newly registered LWM2M device. Each command must be entered in a new line. Use the following syntax for specifying post-registration actions:'
+            | translate
+        }}
+      </p>
+      <pre class="bg-level-0 text-pre-normal m-b-0">
+        <ul class="list-unstyled m-b-0">
+          <li class="m-16" *ngFor="let c of exampleCommands">
+            <p class="text-muted"># {{c.description | translate}}</p>
+            <span class="text-danger">{{c.command}}</span>
+            <span class="text-muted">{{c.resource}}</span>
+          </li>
+        </ul>
+      </pre>
+    </div>
+  </div>
+
+  <div class="card-footer large-padding separator grid__col--fullspan">
+    <button
+      class="btn btn-primary"
+      title="{{ 'Save' | translate }}"
+      type="submit"
+      form="commandsForm"
+      [disabled]="commandsForm.valid && !commandsForm.dirty"
+      [attr.aria-label]="'Save' | translate"
+    >
+      {{ 'Save' | translate }}
+    </button>
+  </div>
+</div>

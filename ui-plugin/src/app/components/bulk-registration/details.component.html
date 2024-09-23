@@ -1,0 +1,25 @@
+
+      
+  <div class="legend form-block p-t-16 m-b-0" translate>Devices</div>
+  <div class="d-flex a-i-center">
+    <div class="d-flex a-i-center p-b-8">
+      <span class="m-r-4 text-medium" translate>Filter by status</span>
+      <c8y-status-filter
+        [options]="OPERATION_STATUS_OPTIONS_MAP"
+        (onFilterChanged)="getOperationsByStatus($event)"
+      ></c8y-status-filter>
+    </div>
+  </div>
+  <div>
+    <c8y-list-group>
+      <div class="d-contents" *ngFor="let details of registrationDetails$ | async;">
+        <c8y-li class="c8y-list__item--double-actions">
+          <div class="col-2">
+            {{ details.endpoint }}
+          </div>
+        </c8y-li>
+      </div>
+
+    </c8y-list-group>
+  </div>
+  

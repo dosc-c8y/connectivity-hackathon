@@ -1,0 +1,14 @@
+<formly-form
+  *ngIf="fields?.length > 0; else empty"
+  [model]="model"
+  [form]="form"
+  [fields]="fields"
+  [options]="options"
+></formly-form>
+<ng-template #empty>
+  <c8y-ui-empty-state
+    [icon]="'c8y-device-protocols'"
+    title="{{ 'No configuration selected' | translate }}"
+    subtitle="{{ 'Select a configuration on the left' | translate }}"
+  ></c8y-ui-empty-state>
+</ng-template>

@@ -1,0 +1,137 @@
+<div class="split-view--5-7 grid__row--1 fit-h">
+  <div class="inner-scroll split-view__list">
+    <div class="bg-level-1 flex-grow">
+      <ng-container *ngIf="listelements$ | async as list">
+        <ng-container *ngIf="list.length > 0 || id === 'create'; else empty">
+          <c8y-list-group class="c8y-list__group nav c8y-nav-stacked">
+            <c8y-li
+              class="c8y-stacked-item p-0 active"
+              *ngIf="id === 'create'"
+            >
+              <c8y-li-icon icon="server"></c8y-li-icon>
+              <span title="{{ 'New server' | translate }}">
+                {{ 'New server' | translate }}
+              </span>
+            </c8y-li>
+            <c8y-li
+              class="c8y-stacked-item p-0"
+              [class.active]="el.id === id"
+              *ngFor="let el of list"
+              (click)="select(el.id)"
+            >
+              <c8y-li-icon [icon]="el.icon"></c8y-li-icon>
+              <span title="{{ el.title }}">
+                {{ el.title }}
+              </span>
+            </c8y-li>
+          </c8y-list-group>
+        </ng-container>
+        <ng-template #empty>
+          <div class="card-block">
+            <c8y-ui-empty-state
+              [icon]="'stack'"
+              [title]="'No servers found.' | translate"
+              [subtitle]="'Click below to add a new one.' | translate"
+            ></c8y-ui-empty-state>
+          </div>
+        </ng-template>
+      </ng-container>
+    </div>
+    <div class="card-footer separator-top">
+      <button
+        class="btn btn-default"
+        title="{{ 'Add server' | translate }}"
+        [disabled]="id === 'create'"
+        (click)="select('create')"
+      >
+        <i [c8yIcon]="'plus-circle'"></i>
+        {{ 'Add server' | translate }}
+      </button>
+    </div>
+  </div>
+  <form class="d-contents">
+    <div
+      class="inner-scroll split-view__detail"
+      [ngClass]="{ 'split-view__detail--selected': cmp?.fields?.length > 0 }"
+    >
+      <div class="card-header separator visible-sm visible-xs fit-w sticky-top">
+        <button
+          class="btn btn-clean text-primary"
+          title="{{ 'Back' | translate }}"
+          type="button"
+          (click)="cmp?.cancel()"
+        >
+          <i c8y-icon="chevron-left"></i>
+          <span>{{ 'Back' | translate }}</span>
+        </button>
+      </div>
+      <div class="card-block flex-grow overflow-visible">
+        <ng-container *ngIf="listelements$ | async as list">
+          <ng-container *ngIf="!cmp?.fields?.length">
+            <c8y-ui-empty-state
+              [icon]="'stack'"
+              title="{{ 'No server to display.' | translate }}"
+              subtitle="{{ 'Add or select a server.' | translate }}"
+            ></c8y-ui-empty-state>
+            <div
+              class="alert alert-info"
+              role="alert"
+            >
+              <strong>{{ 'Info' | translate }}</strong>
+              {{
+                'Configured servers are written when the device does a bootstrap connection.'
+                  | translate
+              }}
+            </div>
+          </ng-container>
+        </ng-container>
+        <ng-container #singleServerForm></ng-container>
+      </div>
+      <div
+        class="card-footer separator sticky-bottom bg-level-0"
+        *ngIf="cmp?.fields?.length > 0"
+      >
+        <button
+          class="btn btn-default"
+          title="{{ 'Cancel' | translate }}"
+          type="button"
+          (click)="cmp.cancel()"
+        >
+          {{ 'Cancel' | translate }}
+        </button>
+
+        <ng-container *ngIf="id !== 'create'; else createServer">
+          <button
+            class="btn btn-danger"
+            title="{{ 'Delete' | translate }}"
+            type="button"
+            [disabled]="cmp.options?.formState?.disabled || false"
+            (click)="cmp.delete()"
+          >
+            {{ 'Delete' | translate }}
+          </button>
+          <button
+            class="btn btn-primary"
+            title="{{ 'Save' | translate }}"
+            type="button"
+            [disabled]="cmp.form?.invalid || !cmp.form?.dirty"
+            (click)="cmp.save()"
+          >
+            {{ 'Save' | translate }}
+          </button>
+        </ng-container>
+        <ng-template #createServer>
+          <button
+            class="btn btn-primary"
+            title="{{ 'Create' | translate }}"
+            type="button"
+            [disabled]="cmp.form?.invalid || !cmp.form?.dirty"
+            (click)="cmp.create()"
+          >
+            {{ 'Create' | translate }}
+          </button>
+        </ng-template>
+      </div>
+    </div>
+  </form>
+</div>
